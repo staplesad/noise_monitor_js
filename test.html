@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<style>
+  path {
+    fill: #ccc;
+    stroke: #fff;
+    stroke-linejoin: round;
+  }
+</style>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<svg width="500" height="500"></svg>
+
+<script>
+
+  var width = 500;
+  var height = 500;
+
+  var chosenProjection = d3.geoMercator()
+  .scale(18000)
+  .translate([2230, 20100])
+  var path = d3.geoPath()
+  .projection(chosenProjection);
+
+  //var b = path.bounds(),
+  //    s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+  //        t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+         
+
+  d3.json("dublin.geojson", function(error, geoData) {
+    if( error ) return console.error(error);
+    d3.select("svg").append("path")
+    .attr("d", path(geoData))
+  });
+
+</script>
+</body>
