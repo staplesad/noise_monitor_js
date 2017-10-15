@@ -31,9 +31,36 @@
 
   d3.json("dublin.geojson", function(error, geoData) {
     if( error ) return console.error(error);
+    
     d3.select("svg").append("path")
-    .attr("d", path(geoData))
+      .attr("d", path(geoData))
+    
+    d3.select("svg").selectAll("circle")
+      .data([[53.369881, -6.258974], [53.371211, -6.144104]]).enter()
+      .append("circle")
+     // .attr("cx", function(d){return path(d)[0];})
+     // .attr("cy", function(d){return path(d)[1];})
+      .attr("transform", function(d) {
+        return "translate(" + chosenProjection([
+        d[1],
+        d[0]
+        ]) + ")";})
+                             
+      .attr("r", "4px")
+      .attr("fill","red")
   });
+
+  //var coords;
+  //d3.json("coords.json", function(error, json) {
+  //  if (error) return console.warn(error);
+  //  coords = json;
+  //  console.log(coords);
+  //  d3.select("svg").selectAll("circle")
+  //    .data(d3.values(coords))
+ //     .enter()
+ //     .append("circle")
+ // });
+
 
 </script>
 </body>
