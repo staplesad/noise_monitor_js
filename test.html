@@ -50,16 +50,16 @@
       .attr("fill","red")
   });
 
-  //var coords;
-  //d3.json("coords.json", function(error, json) {
-  //  if (error) return console.warn(error);
-  //  coords = json;
-  //  console.log(coords);
-  //  d3.select("svg").selectAll("circle")
-  //    .data(d3.values(coords))
- //     .enter()
- //     .append("circle")
- // });
+  var coords;
+  d3.json("coords.json", function(error, json) {
+    if (error) return console.warn(error);
+    coords = json;
+    console.log(coords);
+    d3.select("svg").selectAll("circle")
+      .data(d3.values(coords))
+      .enter()
+      .append("circle")
+  });
 
 
 </script>
