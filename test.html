@@ -7,17 +7,38 @@
     stroke: #fff;
     stroke-linejoin: round;
   }
+  circle {
+    opacity: .8;
+  }
 </style>
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
 </head>
 <body>
 <svg width="500" height="500"></svg>
 
 <script>
-
+  function getLocationData(){
+    var q = d3.queue();
+    for( i = 1; i<=14; i++){
+      q.defer(d3.json, 'https://cors.io/?http://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location='+i); 
+     }
+     q.awaitAll(function(error, results){
+       if(error) console.warn(error);
+        console.log(results);
+       for( i=1; i<=14; i++){
+         locationData[i] = results[i-1];
+       }
+       drawMap();
+     }
+     );
+   } 
   var width = 500;
   var height = 500;
-
+  
   var chosenProjection = d3.geoMercator()
   .scale(18000)
   .translate([2230, 20100])
@@ -34,12 +55,7 @@
     coords = json;
     console.log(d3.entries(coords));
   });
-  var location7;
-  d3.json("location7.json", function(error, json){
-    if(error) return console.warn(error);
-    location7 = json;
-    console.log(d3.entries(location7));
-  });
+  function drawMap(){
 
   d3.json("dublin.geojson", function(error, geoData) {
     if( error ) return console.error(error);
@@ -59,13 +75,18 @@
         d.value[0]
         ]) + ")";})                             
       .attr("r", function(d, i) { 
-        if(i===7) { return d3.entries(location7)[2].value[0]/10 +"px"}
-        else{ return "2px"};})
-      .attr("fill","red")
+        console.log(i);
+        console.log(d);
+        console.log(d3.entries(locationData[i+1]));
+        return d3.entries(locationData[i+1])[2].value[0]/10 +"px";})
+      .attr("fill",function(d, i) { 
+        return d3.interpolateReds(d3.entries(locationData[i+1])[2].value[0]/100) ;})
       .on("mouseover", stationMouseover)
       .on("mouseout", stationMouseout)
       //.text(function(d){return d.key;})
-  });
+    });
+  }
+
   function stationMouseover(d, i) {
     d3.select("svg")
       .append("text")
@@ -79,7 +100,10 @@
    function stationMouseout(d, i) {
      d3.select("text").remove();
    }     
+  
+  var locationData = new Array(14);
+  getLocationData(); 
 
-
+    
 </script>
 </body>
