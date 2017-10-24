@@ -2,6 +2,13 @@
 <head>
 <meta charset="utf-8">
 <style>
+  body {
+    font: Arial;
+  }
+  svg{
+    display: block;
+    margin:auto;
+  }
   path {
     fill: #ccc;
     stroke: #fff;
@@ -18,10 +25,14 @@
 <script src="http://d3js.org/queue.v1.min.js"></script>
 </head>
 <body>
-<svg width="500" height="500"></svg>
+  <text></text>
+  <svg width="500" height="500"></svg>
 
 <script>
   function getLocationData(){
+    d3.select("text")
+      .text("Data is loading....");
+
     var q = d3.queue();
     for( i = 1; i<=14; i++){
       q.defer(d3.json, 'https://cors.io/?http://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location='+i); 
@@ -32,18 +43,16 @@
        for( i=1; i<=14; i++){
          locationData[i] = results[i-1];
        }
-       drawMap();
+       d3.select("text")
+       .text("");
+
+       drawData();
      }
      );
    } 
   var width = 500;
   var height = 500;
   
-  var chosenProjection = d3.geoMercator()
-  .scale(18000)
-  .translate([2230, 20100])
-  var path = d3.geoPath()
-  .projection(chosenProjection);
 
   //var b = path.bounds(),
   //    s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
@@ -57,11 +66,20 @@
   });
   function drawMap(){
 
+  var path = d3.geoPath()
+  .projection(chosenProjection);
+
+  var bounds = path.bounds(1);
+  console.log(bounds);
   d3.json("dublin.geojson", function(error, geoData) {
     if( error ) return console.error(error);
-    
+   
     d3.select("svg").append("path")
       .attr("d", path(geoData))
+    });
+  }
+
+  function drawData(){
     
     d3.select("svg").selectAll("circle")
       .data(d3.entries(coords))
@@ -84,8 +102,8 @@
       .on("mouseover", stationMouseover)
       .on("mouseout", stationMouseout)
       //.text(function(d){return d.key;})
-    });
-  }
+    }
+  
 
   function stationMouseover(d, i) {
     d3.select("svg")
@@ -101,7 +119,12 @@
      d3.select("text").remove();
    }     
   
+   var chosenProjection = d3.geoMercator()
+      .scale(35000)
+    .translate([250, 250])
+    .center([-6.265064,53.390370]);
   var locationData = new Array(14);
+  drawMap();
   getLocationData(); 
 
     
