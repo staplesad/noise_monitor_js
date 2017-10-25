@@ -23,19 +23,20 @@
 <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="jsonp.js"></script>
 </head>
 <body>
-  <text></text>
+  <text id="loading"></text>
   <svg width="500" height="500"></svg>
 
 <script>
   function getLocationData(){
-    d3.select("text")
+    d3.select("#loading")
       .text("Data is loading....");
 
     var q = d3.queue();
     for( i = 1; i<=14; i++){
-      q.defer(d3.json, 'https://cors.io/?http://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location='+i); 
+      q.defer(d3.json, 'https://cors.io?http://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location='+i); 
      }
      q.awaitAll(function(error, results){
        if(error) console.warn(error);
@@ -108,15 +109,17 @@
   function stationMouseover(d, i) {
     d3.select("svg")
       .append("text")
-      .attr("id", function() { return "t" + d.key;})
+      .attr("id", function() { return "t"+i;})
       .attr(
         "transform", function(){return "translate("+chosenProjection([d.value[1],d.value[0]])+")";})
       .text(function(){
         return d.key;
       });
     }
-   function stationMouseout(d, i) {
-     d3.select("text").remove();
+    function stationMouseout(d, i) {
+     console.log(i);
+     d3.select("#t"+i)
+     .remove();
    }     
   
    var chosenProjection = d3.geoMercator()
