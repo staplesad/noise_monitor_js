@@ -1,40 +1,3 @@
-<!DOCTYPE html>
-<head>
-<meta charset="utf-8">
-<style>
-  body {
-    font: Arial;
-  }
-  svg{
-    display: block;
-    margin:auto;
-  }
-  #time{
-    display: block;
-    margin: auto;
-  }
-  path {
-    fill: #ccc;
-    stroke: #fff;
-    stroke-linejoin: round;
-  }
-  circle {
-    opacity: .8;
-  }
-</style>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://d3js.org/d3-color.v1.min.js"></script>
-<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
-<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<script src="http://d3js.org/queue.v1.min.js"></script>
-</head>
-<body>
-  <text id="loading"></text>
-  <svg width="500" height="500"></svg>
-  <input id="time" type="range" min="0" value="0" step="1" onchange="showTime(this.value)"/>
-  <span id="displayTime">00:05</span>
-  <script>
-
     function showTime(intVal){
       var hour = Math.floor(intVal/12);
       var minutes = (intVal % 12)*5 + 5;
@@ -158,5 +121,3 @@
       updateTime(+this.value);
   });
     
-</script>
-</body>
