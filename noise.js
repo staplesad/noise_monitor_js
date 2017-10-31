@@ -1,5 +1,4 @@
     function showTime(intVal){
-      console.log("in showTime");
       var hour = Math.floor(intVal/12);
       var minutes = (intVal % 12)*5 + 5;
       if(minutes >= 60){
@@ -77,9 +76,6 @@
         d.value[0]
         ]) + ")";})                             
       .attr("r", function(d, i) { 
-        //console.log(i);
-        //console.log(d);
-        //console.log(d3.entries(locationData[i+1]));
         return d3.entries(locationData[i+1])[2].value[0]/5 +"px";})
       .attr("fill",function(d, i) { 
         return d3.interpolateReds(d3.entries(locationData[i+1])[2].value[0]/80) ;})
@@ -106,7 +102,6 @@
 
    function updateTime(timeIndex){
       showTime(timeIndex);
-      console.log("in updateTime");
       d3.select("svg")
       .selectAll("circle") 
       .attr("r", function(d, i) { 
@@ -123,8 +118,6 @@
   drawMap();
   getLocationData(); 
   d3.select("#time").on("input", function() {
-      console.log("slider input");
       updateTime(+this.value);
   });
-console.log("TEST");
     

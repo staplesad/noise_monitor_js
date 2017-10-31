@@ -58,11 +58,9 @@ Plan to
 
 * update function wasn't working- think input event listener wasn't firing changed it so onchange is in html and call update
 
-* ```unsolved``` now showTime isn't working and console.log does not seem to be working either.
-
-* ```unsolved``` data loading sign no longer appearing .... 
- 
-* possibly fixed both above by moving script down to bottom of body but not sure as cors.io is overloaded.
+* now showTime isn't working and console.log does not seem to be working either.
+	* data loading sign no longer appearing .... 
+ 	* fixed both above by moving script down to bottom of body but not sure as cors.io is overloaded.
 	
 ## Timeline
 1. 13/10/17
@@ -85,6 +83,9 @@ Plan to
 5. 29/10/17
 	* fixed time display - starts at 00:05 not 00:00 
 	* added function to update the circles as the slider input is changed
+6. 31/10/17
+	* fixed broken js - linked js at top before DOM elements instead of at bottom
+	* refactored parts of slider update
 	
 ##ToDo
 
