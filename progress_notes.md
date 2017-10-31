@@ -56,7 +56,13 @@ Plan to
 
 * data from api contains 210 entries for "time" but ends at an earlier time than expected from number of entries. -- there was repeated sequence in the time array returned by the api - 1:00 - 1:55
 
+* update function wasn't working- think input event listener wasn't firing changed it so onchange is in html and call update
+
+* ```unsolved``` now showTime isn't working and console.log does not seem to be working either.
+
+* ```unsolved``` data loading sign no longer appearing .... 
  
+* possibly fixed both above by moving script down to bottom of body but not sure as cors.io is overloaded.
 	
 ## Timeline
 1. 13/10/17
@@ -80,7 +86,7 @@ Plan to
 	* fixed time display - starts at 00:05 not 00:00 
 	* added function to update the circles as the slider input is changed
 	
-## Immediate ToDo
+##ToDo
 
 * ~~display static points on map ~~
 * ~~display the json data on map~~
@@ -94,6 +100,8 @@ Plan to
 	* set up automatic bounds to enable easier scaling 
 * improve the visuals
 * check mapping of noise data to size and colour - may be amplifying unimportant variation
+* change length of slider so it matches length of shortest location array
+* fix data loading notice
 
 
 

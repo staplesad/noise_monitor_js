@@ -1,4 +1,5 @@
     function showTime(intVal){
+      console.log("in showTime");
       var hour = Math.floor(intVal/12);
       var minutes = (intVal % 12)*5 + 5;
       if(minutes >= 60){
@@ -13,8 +14,10 @@
       .text("Data is loading....");
 
     var q = d3.queue();
+    var cors_api = 'https://cors-anywhere.herokuapp.com/'
+    var noise_api = 'http://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location='
     for( i = 1; i<=14; i++){
-      q.defer(d3.json, 'https://cors.io?http://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location='+i); 
+      q.defer(d3.json, cors_api+noise_api+i); 
      }
      q.awaitAll(function(error, results){
        if(error) console.warn(error);
@@ -102,6 +105,8 @@
    }     
 
    function updateTime(timeIndex){
+      showTime(timeIndex);
+      console.log("in updateTime");
       d3.select("svg")
       .selectAll("circle") 
       .attr("r", function(d, i) { 
@@ -118,6 +123,8 @@
   drawMap();
   getLocationData(); 
   d3.select("#time").on("input", function() {
+      console.log("slider input");
       updateTime(+this.value);
   });
+console.log("TEST");
     
