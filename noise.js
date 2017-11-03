@@ -6,7 +6,8 @@
         hour = hour + 1;
       }
       var displayVal = ('0' + hour).slice(-2) +":"+('0'+minutes).slice(-2);
-      document.getElementById("displayTime").innerHTML=displayVal;
+      d3.select("#displayTime")
+        .text(displayVal);
     }
   function getLocationData(){
     d3.select("#loading")
@@ -68,8 +69,6 @@
       .data(d3.entries(coords))
       .enter()
       .append("circle")
-     // .attr("cx", function(d){return path(d)[0];})
-     // .attr("cy", function(d){return path(d)[1];})
       .attr("transform", function(d) {
         return "translate(" + chosenProjection([
         d.value[1],
@@ -78,10 +77,9 @@
       .attr("r", function(d, i) { 
         return d3.entries(locationData[i+1])[2].value[0]/5 +"px";})
       .attr("fill",function(d, i) { 
-        return d3.interpolateReds(d3.entries(locationData[i+1])[2].value[0]/80) ;})
+        return d3.interpolateRdBu(d3.entries(locationData[i+1])[2].value[0]/100) ;})
       .on("mouseover", stationMouseover)
       .on("mouseout", stationMouseout)
-      //.text(function(d){return d.key;})
     }
   
 
@@ -107,7 +105,7 @@
       .attr("r", function(d, i) { 
         return d3.entries(locationData[i+1])[2].value[timeIndex]/5 +"px";})
       .attr("fill",function(d, i) { 
-        return d3.interpolateReds(d3.entries(locationData[i+1])[2].value[timeIndex]/80) ;})
+        return d3.interpolateRdBu(d3.entries(locationData[i+1])[2].value[0]/100) ;})
    }
 
    var chosenProjection = d3.geoMercator()

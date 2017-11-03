@@ -52,7 +52,7 @@ Plan to
 * Failed to load https://cors.io/?http://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location=1: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:8000' is therefore not allowed access. The response had HTTP status code 503.
 	* cors.io was overloaded - could set up my own cors proxy with heroku
 
-* couldn't delete mouseover text by id -- id i was using included spaces so replaced by number id prefixed by t
+* couldn't delete mouseover text by id -- id I was using included spaces so replaced by number id prefixed by t
 
 * data from api contains 210 entries for "time" but ends at an earlier time than expected from number of entries. -- there was repeated sequence in the time array returned by the api - 1:00 - 1:55
 
@@ -60,7 +60,11 @@ Plan to
 
 * now showTime isn't working and console.log does not seem to be working either.
 	* data loading sign no longer appearing .... 
- 	* fixed both above by moving script down to bottom of body but not sure as cors.io is overloaded.
+ 	* fixed both above by moving script down to bottom of body (was trying to call javascript related to DOM elements before DOM elements were created i think)
+ 	
+ 	
+ * ```unsolved``` When data is cached map is drawn after the circle data points -- need to fix this
+ 	* potentially can use <g> within svg to group elements and prevent this occuring
 	
 ## Timeline
 1. 13/10/17
@@ -101,8 +105,9 @@ Plan to
 	* set up automatic bounds to enable easier scaling 
 * improve the visuals
 * check mapping of noise data to size and colour - may be amplifying unimportant variation
+	* definitely need to change method of mapping - need to sort of range of input 
 * change length of slider so it matches length of shortest location array
-* fix data loading notice
+* ~~fix data loading notice & time display~~
 
 
 
